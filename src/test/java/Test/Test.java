@@ -12,7 +12,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class Test extends HomePage{
 	WebDriver driver;
 	HomePage homepage;
-	
+	//Browser initiation
 @BeforeTest	
 public void init() {
 	WebDriverManager webdrivermanager=WebDriverManager.chromedriver();

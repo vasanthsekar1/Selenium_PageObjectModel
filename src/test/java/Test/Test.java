@@ -32,6 +32,7 @@ public void Test1() {
 	HomePage.clickLearnHtmlLink();
 	System.out.println(homepage.getLearnHtmlLinkText());
 }
+//Closing Browser
 @AfterTest
 public void teardown() {
 	driver.quit();

@@ -11,15 +11,19 @@ import org.testng.IHookable;
 import org.testng.ITestResult;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.qa.web.base.BaseTest;
+import com.qa.web.pages.OrangeHrmHomePage;
 import com.qa.web.pages.OrangeHrmLoginPage;
 import com.qa.web.utils.ExcelUtil;
+import com.qa.web.utils.Util;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 
 	public OrangeHrmLoginPage orangeHrmLoginPage;
+	public OrangeHrmHomePage orangeHrmHomePage;
 
 	@DataProvider(name = "masterDataProvider")
 	public Object[][] getdata(Method method) {
@@ -36,7 +40,6 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 		for (int i = 0; i < result.size(); i++) {
 			value[i][0] = result.get(i);
 		}
-		logger.log(LogStatus.INFO, "Value from excel read successfully");
 
 		return value;
 
@@ -44,23 +47,36 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 
 	public void initElement() {
 		orangeHrmLoginPage = PageFactory.initElements(driver, OrangeHrmLoginPage.class);
+		orangeHrmHomePage = PageFactory.initElements(driver, OrangeHrmHomePage.class);
 
 	}
 
 	@Test(dataProvider = "masterDataProvider", groups = { "smoke", "regression" }, enabled = true)
-	public void validateLoginWithValidCredentials(Map<String, String> data) {
+	public void validateLoginFeature(Map<String, String> data) {
 		orangeHrmLoginPage.setUserName(data.get("UserName"));
-		orangeHrmLoginPage.setUserName(data.get("Password"));
+		orangeHrmLoginPage.setPassword(data.get("Password"));
 		orangeHrmLoginPage.clickLoginButton();
+		if (!data.get("TestMethod").equals("validateLoginFeatureWithValidUserNameAndValidPassword")) {
+			softAssert.assertTrue(orangeHrmLoginPage.checkInvalidLoginErrorMessageIsDisplayed(),
+					"Invalid Login Error Message not Displayed");
+			softAssert.assertEquals(orangeHrmLoginPage.getInvalidLoginErrorMessage(), "Invalid credentials",
+					"Invalid login error message mismatch");
+		} else {
+
+			softAssert.assertTrue(orangeHrmHomePage.checkDashboardHeadingIsDisplayed(),
+					"Dashboard page heading is not displayed");
+		}
+		Util.waitForPageToLoad(5);
 	}
 
 	@Override
 	public void run(IHookCallBack callBack, ITestResult testResult) {
 		reportInit(testResult.getTestContext().getName(), testResult.getMethod().getMethodName());
 		initElement();
+		softAssert = new SoftAssert();
 		logger.log(LogStatus.INFO, "Starting test " + testResult.getName());
 		callBack.runTestMethod(testResult);
-
+		softAssert.assertAll();
 	}
 
 }

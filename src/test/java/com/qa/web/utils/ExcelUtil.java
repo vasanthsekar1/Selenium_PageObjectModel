@@ -17,17 +17,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
 
-	public static Map<String, LinkedHashMap<String, String>> readValueFromExcelAsMap(String filePath, String sheetName) {
+	public static Map<String, LinkedHashMap<String, String>> readValueFromExcelAsMap(String filePath,
+			String sheetName) {
 
-		Workbook wb = null;
 		Sheet s = null;
-		try {
-			wb = WorkbookFactory.create(new File(filePath));
-
-			s = wb.getSheet(sheetName);
+		try (XSSFWorkbook workbook = new XSSFWorkbook(filePath)) {
+			s = workbook.getSheet(sheetName);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
 		Map<String, LinkedHashMap<String, String>> dataList = new HashMap<String, LinkedHashMap<String, String>>();
 
 		int countOfDataSet = s.getRow(0).getPhysicalNumberOfCells();

@@ -6,9 +6,9 @@
       <class name="com.qa.web.tests.OrangeHrmLoginPageTests">
         <methods>
           <include name="before"/>
+          <include name="validateLoginFeatureWithValidUserNameAndValidPassword"/>
           <include name="tearDownSuite"/>
           <include name="tearDown"/>
-          <include name="validateLoginWithValidCredentials"/>
           <include name="setupBrowser"/>
         </methods>
       </class> <!-- com.qa.web.tests.OrangeHrmLoginPageTests -->

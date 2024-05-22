@@ -11,6 +11,8 @@ public class OrangeHrmLoginPage {
 	private WebElement password;
 	@FindBy(xpath = "//button[@type='submit']")
 	private WebElement loginButton;
+	@FindBy(xpath = "//div[@role='alert']/div/p")
+	private WebElement invalidLoginErrorMessage;
 
 	// Action Methods
 
@@ -24,5 +26,13 @@ public class OrangeHrmLoginPage {
 
 	public void clickLoginButton() {
 		loginButton.click();
+	}
+
+	public boolean checkInvalidLoginErrorMessageIsDisplayed() {
+		return invalidLoginErrorMessage.isDisplayed();
+	}
+
+	public String getInvalidLoginErrorMessage() {
+		return invalidLoginErrorMessage.getText().trim();
 	}
 }

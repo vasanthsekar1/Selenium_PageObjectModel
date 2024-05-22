@@ -1,5 +1,7 @@
 package com.qa.web.base;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -21,11 +23,11 @@ public class BaseTest {
 	public ExtentTest logger;
 	public ExtentReports report;
 	protected WebDriver driver;
-	SoftAssert softassert;
+	protected SoftAssert softAssert = null;
 
 	@BeforeSuite
 	public void before() {
-		report = new ExtentReports("target\\Reports\\ExtentReport.html", true);
+		report = new ExtentReports("test-output/Reports/ExtentReport.html", true);
 	}
 
 	public void reportInit(String testContextName, String testMethodName) {
@@ -36,7 +38,6 @@ public class BaseTest {
 	@AfterSuite
 	public void tearDownSuite() {
 		report.flush();
-		report.close();
 	}
 
 	@BeforeMethod
@@ -60,11 +61,13 @@ public class BaseTest {
 		}
 		driver.manage().window().maximize();
 		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 	}
 
 	@AfterMethod
 	public void tearDown() {
+		report.endTest(logger);
 		driver.quit();
 	}
 }

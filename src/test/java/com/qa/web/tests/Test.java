@@ -1,4 +1,4 @@
-package Test;
+package com.qa.web.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,7 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
-import Pages.HomePage;
+import com.qa.web.pages.HomePage;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Test extends HomePage{
@@ -22,9 +23,8 @@ public void init() {
 	driver.get("https://www.w3schools.com/");
 	homepage=PageFactory.initElements(driver,HomePage.class);
 	
+}
 	
-	
-	}
 @org.testng.annotations.Test
 public void Test1() {
 	

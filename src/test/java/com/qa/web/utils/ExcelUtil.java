@@ -1,4 +1,4 @@
-package Utils;
+package com.qa.web.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
-	/*private static XSSFSheet excelWSheet;
+	private static XSSFSheet excelWSheet;
 	private static XSSFWorkbook excelWBook;
 	private static XSSFCell cell;
 	
@@ -45,7 +45,7 @@ public class ExcelUtil {
 				
 			}
 			totalRows=excelWSheet.getPhysicalNumberOfRows()-1;
-			totalCols=excelWBook.getRow(0).getPhysicalNumberOfCells()-1;
+			totalCols=excelWSheet.getRow(0).getPhysicalNumberOfCells()-1;
 			columnArray=new String[totalRows][totalCols+1];
 			ci=0;
 			for(int j=0;j<totalCols;j++) {
@@ -85,5 +85,5 @@ public class ExcelUtil {
 		}
 		return dataMap;
 	}
-*/
+
 }

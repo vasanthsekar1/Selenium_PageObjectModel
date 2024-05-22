@@ -1,7 +1,6 @@
 package com.qa.web.base;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -59,8 +58,8 @@ public class BaseTest {
 				try {
 					ts = (TakesScreenshot) driver;
 					source = ts.getScreenshotAs(OutputType.FILE);
-					screenshotPath = "test-output/Reports/Screenshot" + result.getName() + "_"
-							+ System.currentTimeMillis() + ".png";
+					screenshotPath = System.getProperty("user.dir") + "/test-output/Reports/Screenshot/"
+							+ result.getName() + "_" + System.currentTimeMillis() + ".png";
 					FileUtils.copyFile(source, new File(screenshotPath));
 					logger.addScreenCaptureFromPath(screenshotPath);
 					logger.log(Status.INFO, result.getThrowable());

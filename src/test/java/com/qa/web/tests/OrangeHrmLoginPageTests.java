@@ -52,7 +52,7 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 	}
 
 	@Test(dataProvider = "masterDataProvider", groups = { "smoke", "regression" }, enabled = true)
-	public void validateLoginFeature(Map<String, String> data) {
+	public void validateLoginFeatureWithValidUserNameAndValidPassword(Map<String, String> data) {
 		logger.log(Status.INFO, data.get("TestMethod") + " test execution started");
 		orangeHrmLoginPage.setUserName(data.get("UserName"), logger);
 		orangeHrmLoginPage.setPassword(data.get("Password"), logger);

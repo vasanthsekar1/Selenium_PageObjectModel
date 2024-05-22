@@ -1,25 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="0" skipped="1">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-02-06T13:46:57Z" name="Default suite" finished-at="2022-02-06T13:47:30Z" duration-ms="33470">
+  <suite started-at="2024-05-22T08:15:08Z" name="Suite" finished-at="2024-05-22T08:15:24Z" duration-ms="16434">
     <groups>
+      <group name="regression">
+        <method signature="OrangeHrmLoginPageTests.validateLoginWithValidCredentials(java.util.Map)[pri:0, instance:com.qa.web.tests.OrangeHrmLoginPageTests@4686afc2]" name="validateLoginWithValidCredentials" class="com.qa.web.tests.OrangeHrmLoginPageTests"/>
+      </group> <!-- regression -->
+      <group name="smoke">
+        <method signature="OrangeHrmLoginPageTests.validateLoginWithValidCredentials(java.util.Map)[pri:0, instance:com.qa.web.tests.OrangeHrmLoginPageTests@4686afc2]" name="validateLoginWithValidCredentials" class="com.qa.web.tests.OrangeHrmLoginPageTests"/>
+      </group> <!-- smoke -->
     </groups>
-    <test started-at="2022-02-06T13:46:57Z" name="Default test" finished-at="2022-02-06T13:47:30Z" duration-ms="33470">
-      <class name="Test.Test">
-        <test-method is-config="true" signature="init()[pri:0, instance:Test.Test@54e1c68b]" started-at="2022-02-06T13:46:57Z" name="init" finished-at="2022-02-06T13:47:11Z" duration-ms="14331" status="PASS">
+    <test started-at="2024-05-22T08:15:08Z" name="OrangeHrm Test" finished-at="2024-05-22T08:15:24Z" duration-ms="16434">
+      <class name="com.qa.web.tests.OrangeHrmLoginPageTests">
+        <test-method is-config="true" signature="before()[pri:0, instance:com.qa.web.tests.OrangeHrmLoginPageTests@4686afc2]" started-at="2024-05-22T08:15:08Z" name="before" finished-at="2024-05-22T08:15:08Z" duration-ms="71" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- init -->
-        <test-method signature="Test1()[pri:0, instance:Test.Test@54e1c68b]" started-at="2022-02-06T13:47:11Z" name="Test1" finished-at="2022-02-06T13:47:30Z" duration-ms="19035" status="PASS">
+        </test-method> <!-- before -->
+        <test-method signature="validateLoginWithValidCredentials(java.util.Map)[pri:0, instance:com.qa.web.tests.OrangeHrmLoginPageTests@4686afc2]" started-at="2024-05-22T08:15:24Z" name="validateLoginWithValidCredentials" data-provider="masterDataProvider" finished-at="2024-05-22T08:15:24Z" duration-ms="0" status="SKIP">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[java.lang.NoSuchFieldError: Factory]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: java.lang.NoSuchFieldError: Factory
+at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:49)
+at org.testng.internal.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:131)
+at org.testng.internal.Parameters.handleParameters(Parameters.java:706)
+at org.testng.internal.ParameterHandler.handleParameters(ParameterHandler.java:49)
+at org.testng.internal.ParameterHandler.createParameters(ParameterHandler.java:37)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:924)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: java.lang.NoSuchFieldError: Factory
+at org.apache.poi.xssf.model.ThemesTable.readFrom(ThemesTable.java:119)
+at org.apache.poi.xssf.model.ThemesTable.<init>(ThemesTable.java:87)
+at org.apache.poi.ooxml.POIXMLFactory.createDocumentPart(POIXMLFactory.java:61)
+at org.apache.poi.ooxml.POIXMLDocumentPart.read(POIXMLDocumentPart.java:661)
+at org.apache.poi.ooxml.POIXMLDocument.load(POIXMLDocument.java:165)
+at org.apache.poi.xssf.usermodel.XSSFWorkbook.<init>(XSSFWorkbook.java:274)
+at org.apache.poi.xssf.usermodel.XSSFWorkbookFactory.createWorkbook(XSSFWorkbookFactory.java:118)
+at org.apache.poi.xssf.usermodel.XSSFWorkbookFactory.create(XSSFWorkbookFactory.java:156)
+at org.apache.poi.xssf.usermodel.XSSFWorkbookFactory.create(XSSFWorkbookFactory.java:36)
+at org.apache.poi.ss.usermodel.WorkbookFactory.lambda$create$4(WorkbookFactory.java:311)
+at org.apache.poi.ss.usermodel.WorkbookFactory.wp(WorkbookFactory.java:329)
+at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:311)
+at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:277)
+at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:255)
+at com.qa.web.utils.ExcelUtil.readValueFromExcelAsMap(ExcelUtil.java:25)
+at com.qa.web.tests.OrangeHrmLoginPageTests.getdata(OrangeHrmLoginPageTests.java:28)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:74)
+at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:45)
+... 22 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Test1 -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:Test.Test@54e1c68b]" started-at="2022-02-06T13:47:30Z" name="teardown" finished-at="2022-02-06T13:47:30Z" duration-ms="94" status="PASS">
+        </test-method> <!-- validateLoginWithValidCredentials -->
+        <test-method is-config="true" signature="tearDownSuite()[pri:0, instance:com.qa.web.tests.OrangeHrmLoginPageTests@4686afc2]" started-at="2024-05-22T08:15:24Z" name="tearDownSuite" finished-at="2024-05-22T08:15:24Z" duration-ms="89" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- teardown -->
-      </class> <!-- Test.Test -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- tearDownSuite -->
+      </class> <!-- com.qa.web.tests.OrangeHrmLoginPageTests -->
+    </test> <!-- OrangeHrm Test -->
+  </suite> <!-- Suite -->
 </testng-results>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" thread-count="1">
+	<test name="OrangeHrm Test">
+		<parameter name="Browser" value="chrome">
+		</parameter>
+		<parameter name="url"
+			value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login">
+		</parameter>
+		<classes>
+			<class name="com.qa.web.tests.OrangeHrmLoginPageTests">
+			</class>
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

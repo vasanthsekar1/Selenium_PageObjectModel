@@ -1,89 +1,51 @@
 package com.qa.web.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtil {
-	private static XSSFSheet excelWSheet;
-	private static XSSFWorkbook excelWBook;
-	private static XSSFCell cell;
-	
-	public Map<String,Map<String,String>> cacheAllExcelData(String xlsPath){
-		Map<String,Map<String,String>> excelDataMap=null;
-		String sheetName=System.getenv("ENVNAME");
-		if(sheetName==null || "".equals(sheetName)) {
-			sheetName="Sheet1";
-		}
-		excelDataMap=getAllExcelDataMap(getColumnArray(xlsPath,sheetName),getTableArray(xlsPath,sheetName));
-		return excelDataMap;
-		
-	}
 
-	private Object[][] getTableArray(String xlsPath, String sheetName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public static Map<String, LinkedHashMap<String, String>> readValueFromExcelAsMap(String filePath, String sheetName) {
 
-	public static Object[][] getColumnArray(String filePath, String sheetName) {
-		String[][] columnArray=null;
-		int ci;
-		int totalRows;
-		int totalCols;
+		Workbook wb = null;
+		Sheet s = null;
 		try {
-			FileInputStream excelFile=new FileInputStream(filePath);
-			excelWBook=new XSSFWorkbook(excelFile);
-			excelWSheet=excelWBook.getSheet(sheetName);
-			if(excelWSheet==null) {
-				excelWSheet=excelWBook.getSheet("Sheet1");
-				
-			}
-			totalRows=excelWSheet.getPhysicalNumberOfRows()-1;
-			totalCols=excelWSheet.getRow(0).getPhysicalNumberOfCells()-1;
-			columnArray=new String[totalRows][totalCols+1];
-			ci=0;
-			for(int j=0;j<totalCols;j++) {
-				if(getCellData(ci,j).trim(0!="")) {
-					columnArray[ci][j]=getCellData(ci,j);
-					
-				}
-			}
-		}
-		catch(FileNotFoundException e) {
-			System.out.println("Could not read the Excel Sheet: "+sheetName);
-		}
-		catch(IOException e) {
-			System.out.println("Could not read the Excel Sheet: "+sheetName);
-			
-		}
-		return (columnArray);
-	}
+			wb = WorkbookFactory.create(new File(filePath));
 
-	private static Map<String,Map<String,String>> getAllExcelDataMap(Object[][] columnArray, Object[][] testDataArray){
-		Map<String,Map<String,String>> dataMap=new HashMap<String,Map<String,String>>();
-		int testMethodIndex=0;
-		for(testMethodIndex=0;testMethodIndex<columnArray.length;testMethodIndex++) {
-			if("TestMethod".equals(columnArray[0][testMethodIndex])) {
-				break;
-			}
+			s = wb.getSheet(sheetName);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		if(testDataArray!=null) {
-			for(int i=0;i<testDataArray.length;i++) {
-				Map<String,String> rowMap=new HashMap<String,String>();
-				for(int j=0;j<columnArray[0].length;j++) {
-					rowMap.put((String)columnArray[0][j].toString(),testDataArray[i][j].toString());
-					
-				}
-				dataMap.put((String)testDataArray[i][testMethodIndex],rowMap);
-			}
-		}
-		return dataMap;
-	}
+		Map<String, LinkedHashMap<String, String>> dataList = new HashMap<String, LinkedHashMap<String, String>>();
 
+		int countOfDataSet = s.getRow(0).getPhysicalNumberOfCells();
+		int rowCount = s.getPhysicalNumberOfRows();
+
+		for (int j = 1; j < rowCount; j++) {
+			LinkedHashMap<String, String> data = new LinkedHashMap<>();
+			for (int i = 0; i < countOfDataSet; i++) {
+				String fieldName = String.valueOf(s.getRow(0).getCell(i));
+				String fieldValue = String.valueOf(s.getRow(j).getCell(i));
+				data.put(fieldName, fieldValue);
+
+			}
+
+			dataList.put(data.get("TestMethod"), data);
+
+		}
+
+		return dataList;
+	}
 }

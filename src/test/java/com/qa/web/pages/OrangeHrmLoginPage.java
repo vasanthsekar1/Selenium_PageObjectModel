@@ -3,6 +3,9 @@ package com.qa.web.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
 public class OrangeHrmLoginPage {
 
 	@FindBy(xpath = "//*[@name='username']")
@@ -16,23 +19,28 @@ public class OrangeHrmLoginPage {
 
 	// Action Methods
 
-	public void setUserName(String usernameText) {
+	public void setUserName(String usernameText, ExtentTest logger) {
 		username.sendKeys(usernameText);
+		logger.log(Status.INFO, "set username: " + usernameText);
 	}
 
-	public void setPassword(String passwordText) {
+	public void setPassword(String passwordText, ExtentTest logger) {
 		password.sendKeys(passwordText);
+		logger.log(Status.INFO, "set passeord: " + passwordText);
 	}
 
-	public void clickLoginButton() {
+	public void clickLoginButton(ExtentTest logger) {
 		loginButton.click();
+		logger.log(Status.INFO, "clickLoginButton");
 	}
 
-	public boolean checkInvalidLoginErrorMessageIsDisplayed() {
+	public boolean checkInvalidLoginErrorMessageIsDisplayed(ExtentTest logger) {
+		logger.log(Status.INFO, "checkInvalidLoginErrorMessageIsDisplayed");
 		return invalidLoginErrorMessage.isDisplayed();
 	}
 
-	public String getInvalidLoginErrorMessage() {
+	public String getInvalidLoginErrorMessage(ExtentTest logger) {
+		logger.log(Status.INFO, "getInvalidLoginErrorMessage");
 		return invalidLoginErrorMessage.getText().trim();
 	}
 }

@@ -13,12 +13,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.aventstack.extentreports.Status;
 import com.qa.web.base.BaseTest;
 import com.qa.web.pages.OrangeHrmHomePage;
 import com.qa.web.pages.OrangeHrmLoginPage;
 import com.qa.web.utils.ExcelUtil;
 import com.qa.web.utils.Util;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 
@@ -53,20 +53,20 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 
 	@Test(dataProvider = "masterDataProvider", groups = { "smoke", "regression" }, enabled = true)
 	public void validateLoginFeature(Map<String, String> data) {
-		orangeHrmLoginPage.setUserName(data.get("UserName"));
-		orangeHrmLoginPage.setPassword(data.get("Password"));
-		orangeHrmLoginPage.clickLoginButton();
+		orangeHrmLoginPage.setUserName(data.get("UserName"), logger);
+		orangeHrmLoginPage.setPassword(data.get("Password"), logger);
+		orangeHrmLoginPage.clickLoginButton(logger);
 		if (!data.get("TestMethod").equals("validateLoginFeatureWithValidUserNameAndValidPassword")) {
-			softAssert.assertTrue(orangeHrmLoginPage.checkInvalidLoginErrorMessageIsDisplayed(),
+			softAssert.assertTrue(orangeHrmLoginPage.checkInvalidLoginErrorMessageIsDisplayed(logger),
 					"Invalid Login Error Message not Displayed");
-			softAssert.assertEquals(orangeHrmLoginPage.getInvalidLoginErrorMessage(), "Invalid credentials",
+			softAssert.assertEquals(orangeHrmLoginPage.getInvalidLoginErrorMessage(logger), "Invalid credentials",
 					"Invalid login error message mismatch");
 		} else {
 
-			softAssert.assertTrue(orangeHrmHomePage.checkDashboardHeadingIsDisplayed(),
+			softAssert.assertTrue(orangeHrmHomePage.checkDashboardHeadingIsDisplayed(logger),
 					"Dashboard page heading is not displayed");
 		}
-		Util.waitForPageToLoad(5);
+		Util.waitForPageToLoad(3);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 		reportInit(testResult.getTestContext().getName(), testResult.getMethod().getMethodName());
 		initElement();
 		softAssert = new SoftAssert();
-		logger.log(LogStatus.INFO, "Starting test " + testResult.getName());
+		logger.log(Status.INFO, "Starting test " + testResult.getName());
 		callBack.runTestMethod(testResult);
 		softAssert.assertAll();
 	}

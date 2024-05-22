@@ -59,8 +59,8 @@ public class BaseTest {
 				try {
 					ts = (TakesScreenshot) driver;
 					source = ts.getScreenshotAs(OutputType.FILE);
-					screenshotPath = System.getenv("user.dir") + "/test-output/Reports/Screenshot" + result.getName()
-							+ "_" + System.currentTimeMillis() + ".png";
+					screenshotPath = "test-output/Reports/Screenshot" + result.getName() + "_"
+							+ System.currentTimeMillis() + ".png";
 					FileUtils.copyFile(source, new File(screenshotPath));
 					logger.addScreenCaptureFromPath(screenshotPath);
 					logger.log(Status.INFO, result.getThrowable());

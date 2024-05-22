@@ -53,6 +53,7 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 
 	@Test(dataProvider = "masterDataProvider", groups = { "smoke", "regression" }, enabled = true)
 	public void validateLoginFeature(Map<String, String> data) {
+		logger.log(Status.INFO, data.get("TestMethod") + " test execution started");
 		orangeHrmLoginPage.setUserName(data.get("UserName"), logger);
 		orangeHrmLoginPage.setPassword(data.get("Password"), logger);
 		orangeHrmLoginPage.clickLoginButton(logger);
@@ -61,10 +62,13 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 					"Invalid Login Error Message not Displayed");
 			softAssert.assertEquals(orangeHrmLoginPage.getInvalidLoginErrorMessage(logger), "Invalid credentials",
 					"Invalid login error message mismatch");
+			logger.log(Status.INFO, "validate error message displayed");
+
 		} else {
 
 			softAssert.assertTrue(orangeHrmHomePage.checkDashboardHeadingIsDisplayed(logger),
 					"Dashboard page heading is not displayed");
+			logger.log(Status.INFO, "validate dashboard text displayed");
 		}
 		Util.waitForPageToLoad(3);
 	}
@@ -74,9 +78,9 @@ public class OrangeHrmLoginPageTests extends BaseTest implements IHookable {
 		reportInit(testResult.getTestContext().getName(), testResult.getMethod().getMethodName());
 		initElement();
 		softAssert = new SoftAssert();
-		logger.log(Status.INFO, "Starting test " + testResult.getName());
 		callBack.runTestMethod(testResult);
 		softAssert.assertAll();
+
 	}
 
 }
